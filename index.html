@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI生活應用分享</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>歡迎來到《AI生活應用分享 / AI Skill for Everyday Life》</h1>
+
+    <nav>
+      <ul>
+        <li><a href="v1a_home.html">教材閱讀區</a></li>
+        <li><a href="about_me.html">關於我</a></li>
+        <li><a href="stats.html">訪問統計</a></li>
+        <li><a href="comments.html">留言板</a></li>
+        <li><a href="search.html">搜尋</a></li>
+        <li><a href="publications.html">我的出版品</a></li>
+        <li><a href="resources.html">推薦資源</a></li>
+      </ul>
+    </nav>
+
+    <section>
+      <p>這個入口網站提供我在統計資料、留言互動與外部資源連結。</p>
+      <p>請透過上方選單瀏覽各個頁面。</p>
+    </section>
+
+    <section style="margin-top:40px;">
+      <h2>🎬 精選影音分享區</h2>
+
+      <label for="videoSelect">選擇影片或音訊：</label>
+      <select id="videoSelect" onchange="showVideo()"></select>
+
+      <div id="videoPlayer" style="margin-top:20px;"></div>
+
+      <div id="videoError" style="color:#b00020;white-space:pre-line;margin-top:12px;"></div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 AI生活應用分享</p>
+    </footer>
+  </div>
+
+  <!-- 只保留一個影音控制腳本 -->
+  <script src="assets/js/videos.js"></script>
+</body>
+</html>

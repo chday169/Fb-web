@@ -1,0 +1,128 @@
+// 在 showPDF 函數中更新這部分
+async function showPDF(index) {
+  if (index < 0 || index >= pdfList.length) return;
+  currentIndex = index;
+  currentPage = 1;
+
+  const item = pdfList[index];
+  
+  // 修正路徑：從 pdfs/pdf01.pdf 改為 data/pdfs/pdf01.pdf
+  let fileURL = `data/${item.url}`;
+  
+  // 顯示載入訊息
+  document.getElementById('statusText').innerHTML = `
+    <div style="display: flex; align-items: center;">
+      <div style="margin-right: 10px;">⏳</div>
+      <div>正在載入 PDF：${item.title}</div>
+    </div>
+  `;
+  
+  document.getElementById('pdfCanvas').style.display = 'none';
+
+  try {
+    // 先檢查檔案是否存在
+    const response = await fetch(fileURL, { method: 'HEAD' });
+    if (!response.ok) {
+      // 嘗試另一種路徑格式
+      fileURL = `./data/${item.url}`;
+      const response2 = await fetch(fileURL, { method: 'HEAD' });
+      if (!response2.ok) {
+        throw new Error(`檔案不存在或無法存取：${fileURL}`);
+      }
+    }
+    
+    // 使用 PDF.js 載入 PDF
+    const loadingTask = pdfjsLib.getDocument(fileURL);
+    currentPDF = await loadingTask.promise;
+    totalPages = currentPDF.numPages;
+    
+    // 顯示 PDF
+    await renderPage(currentPage);
+    document.getElementById('pdfCanvas').style.display = 'block';
+    
+    // 更新狀態
+    document.getElementById('statusText').innerHTML = `
+      <div style="color: #2e7d32;">
+        ✅ 已載入：${item.title}<br>
+        <small>共 ${totalPages} 頁</small>
+      </div>
+    `;
+    
+    // 更新統計
+    pdfList[index].views = (pdfList[index].views || 0) + 1;
+    updateStats(index);
+    
+  } catch (err) {
+    console.error('PDF 載入失敗：', err);
+    
+    // 提供更詳細的錯誤訊息
+    let errorDetails = `
+      <strong>❌ 無法載入 PDF</strong><br>
+      錯誤訊息：${err.message}<br>
+      檔案路徑：${fileURL}<br><br>
+      
+      <strong>可能的解決方案：</strong>
+      <ol style="margin: 10px 0 0 20px;">
+        <li>確認 PDF 檔案已上傳到正確位置</li>
+        <li>檢查檔案路徑是否正確</li>
+        <li>如果是本地測試，請使用 HTTP 伺服器（如 python -m http.server）</li>
+        <li>如果是 GitHub Pages，確認檔案已提交到倉庫</li>
+      </ol>
+    `;
+    
+    document.getElementById('statusText').innerHTML = `
+      <div class="error-message">${errorDetails}</div>
+    `;
+    
+    // 顯示範例PDF按鈕
+    const statusDiv = document.getElementById('statusText');
+    statusDiv.innerHTML += `
+      <div style="margin-top: 15px; padding: 10px; background: #e8f4fd; border-radius: 5px;">
+        <strong>暫時解決方案：</strong><br>
+        您可以使用 <button onclick="loadSamplePDF()" style="padding: 5px 10px; margin: 5px; background: #2196f3; color: white; border: none; border-radius: 3px; cursor: pointer;">載入範例PDF</button>
+        測試 PDF 閱讀功能
+      </div>
+    `;
+    
+    document.getElementById('pdfCanvas').style.display = 'none';
+  }
+
+  document.getElementById('pdfSelect').value = index;
+}
+
+// 載入範例PDF的函數
+async function loadSamplePDF() {
+  try {
+    // 使用一個線上可用的範例PDF
+    const samplePDFUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+    
+    document.getElementById('statusText').innerHTML = `
+      <div style="display: flex; align-items: center;">
+        <div style="margin-right: 10px;">⏳</div>
+        <div>正在載入範例 PDF...</div>
+      </div>
+    `;
+    
+    const loadingTask = pdfjsLib.getDocument(samplePDFUrl);
+    currentPDF = await loadingTask.promise;
+    totalPages = currentPDF.numPages;
+    
+    await renderPage(1);
+    document.getElementById('pdfCanvas').style.display = 'block';
+    
+    document.getElementById('statusText').innerHTML = `
+      <div style="color: #2e7d32;">
+        ✅ 已載入範例 PDF<br>
+        <small>共 ${totalPages} 頁</small>
+      </div>
+    `;
+  } catch (err) {
+    document.getElementById('statusText').innerHTML = `
+      <div class="error-message">
+        <strong>❌ 無法載入範例 PDF</strong><br>
+        錯誤訊息：${err.message}<br>
+        可能原因：網路連線問題
+      </div>
+    `;
+  }
+}

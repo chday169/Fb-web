@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>網站統計 - AI生活應用分享</title>
+  <link href="assets/style.css" rel="stylesheet">
+  <script src="assets/script.js"></script>
+</head>
+<body class="container">
+  <h1>📊 網站統計</h1>
+
+  <section>
+    <p>總訪問人數：<strong id="totalVisits">0</strong></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>頁面</th>
+          <th>點閱次數</th>
+          <th>按讚次數</th>
+          <th>模擬操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>原首頁</td>
+          <td id="views_v1a_home">0</td>
+          <td id="likes_v1a_home">0</td>
+          <td>
+            <button onclick="simulateView('v1a_home')">模擬點閱</button>
+            <button onclick="simulateLike('v1a_home')">模擬按讚</button>
+          </td>
+        </tr>
+        <tr>
+          <td>關於我</td>
+          <td id="views_about_me">0</td>
+          <td id="likes_about_me">0</td>
+          <td>
+            <button onclick="simulateView('about_me')">模擬點閱</button>
+            <button onclick="simulateLike('about_me')">模擬按讚</button>
+          </td>
+        </tr>
+        <tr>
+          <td>留言板</td>
+          <td id="views_comments">0</td>
+          <td id="likes_comments">0</td>
+          <td>
+            <button onclick="simulateView('comments')">模擬點閱</button>
+            <button onclick="simulateLike('comments')">模擬按讚</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div style="text-align: center; margin-top: 40px;">
+    <a href="index.html" class="btn">⬅️ 回首頁 | Back to Home</a>
+  </div>
+
+  <footer style="text-align: center; margin-top: 20px;">
+    <p>&copy; 2026 AI生活應用分享</p>
+  </footer>
+</body>
+</html>

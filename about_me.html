@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於我 - AI生活應用分享</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="container">
+  <h1>🙋 關於我</h1>
+  <img src="assets/images/profile.jpg" alt="我的照片" style="max-width: 200px; border-radius: 10px;">
+
+  <section>
+    <h2>👨‍💻 我的背景</h2>
+    <p>您好，我是一位退休的土木及水利技師。退休後，我開始探索如何將 <strong>AI 技術應用在日常生活</strong>，並透過網頁設計、互動遊戲與技術分享，記錄並傳遞這些經驗。</p>
+  </section>
+
+  <section>
+    <h2>📘 學習與程式經驗</h2>
+    <p>我早年自學 Fortran、Basic、Lotus、Clipper 等語言，後來轉向 VB、VB.NET 及 Python。近年來，我也嘗試以 <strong>Scratch（Turbowarp）</strong> 重新詮釋過去的程式作品。</p>
+  </section>
+
+  <section>
+    <h2>🌍 我的理念</h2>
+    <p>這個網站的核心是 <strong>AI 技術 × 生活應用</strong>。我希望透過分享，讓更多人理解 AI 如何融入日常。</p>
+  </section>
+
+  <!-- 新增影音展示區 - 改為動態載入 -->
+  <section style="margin-top:40px;">
+    <h2>🎬 我的影音分享</h2>
+
+    <label for="videoSelect">選擇影片或音訊：</label>
+    <select id="videoSelect" onchange="showVideo()"></select>
+
+    <div id="videoPlayer" style="margin-top:20px;"></div>
+    <div id="videoError" style="color:#b00020;white-space:pre-line;margin-top:12px;"></div>
+  </section>
+
+  <div style="text-align: center; margin-top: 40px;">
+    <a href="index.html" class="btn">⬅️ 回首頁 | Back to Home</a>
+  </div>
+
+  <footer style="text-align: center; margin-top: 20px;">
+    <p>&copy; 2026 AI生活應用分享</p>
+  </footer>
+
+  <!-- 引入影音控制腳本 -->
+  <script src="assets/js/videos.js"></script>
+</body>
+</html>
